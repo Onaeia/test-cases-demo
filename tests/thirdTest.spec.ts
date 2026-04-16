@@ -1,0 +1,30 @@
+import {test} from '@playwright/test';
+
+test('the Extra Components test', async ({ page }) => {
+    test.setTimeout(60000);
+await page.goto('http://localhost:4200/');
+await page.getByRole('link', { name: 'Extra Components' }).click();
+await page.getByRole('link', { name: 'Calendar' }).click();
+await page.getByRole('button').nth(4).click();
+await page.getByRole('button').nth(3).click();
+await page.getByText('4').nth(1).click();
+await page.getByRole('button', { name: 'April' }).first().click();
+await page.getByText('2026', { exact: true }).click();
+await page.getByText('Apr', { exact: true }).click();
+await page.locator('nb-calendar-range').getByRole('button', { name: 'April' }).click();
+await page.getByText('2027', { exact: true }).click();
+await page.getByText('Feb').click();
+await page.getByText('4', { exact: true }).nth(1).click();
+await page.getByRole('button').filter({ hasText: /^$/ }).nth(3).click();
+await page.getByRole('button').filter({ hasText: /^$/ }).nth(4).click();
+await page.getByRole('button', { name: 'April' }).nth(1).click();
+await page.getByText('2025').click();
+await page.getByText('Nov').click();
+await page.getByRole('button').filter({ hasText: /^$/ }).nth(5).click();
+await page.locator('div:nth-child(3) > nb-calendar > .has-navigation > nb-card > .calendar-navigation > nb-calendar-pageable-navigation > .next-month').click();
+await page.getByRole('button', { name: 'November' }).click();
+await page.getByText('2026', { exact: true }).click();
+await page.getByText('Apr', { exact: true }).click();
+await page.getByText('4', { exact: true }).nth(3).click();
+await page.locator('body').press('ControlOrMeta+s');
+});
