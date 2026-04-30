@@ -150,7 +150,7 @@ await page.waitForLoadState('domcontentloaded');
 const page8Promise = context.waitForEvent('page');
 await page.getByRole('button', { name: 'New Window' }).click();
 const page8 = await page8Promise;
-
+});
 
 test('test 9 - Hover', async ({ page }) => {
   test.setTimeout(60000);
@@ -249,12 +249,12 @@ test('test 10 - Ads', async ({ page }) => {
   await page.goto('https://practice-automation.com/spinners/');
 });
 
-test('test 15 - File Upload', async ({ page }) => {
+ test('test 15 - File Upload', async ({ page }) => {
   test.setTimeout(60000);
   // Navigate to page
   await page.goto('https://practice-automation.com/');
   await page.getByRole('link', { name: 'File Upload' }).click();
   // Upload file from desktop
- await page.getByRole('button', { name: 'Choose File' }).setInputFiles('tests/fixtures/TestDoc.txt');
+  await page.getByRole('button', { name: 'Choose File' }).setInputFiles('tests/fixtures/TestDoc.txt');
   await page.getByRole('button', { name: 'Upload' }).click();
 });
