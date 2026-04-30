@@ -142,15 +142,14 @@ test('test 8 - Window Operations', async ({ page, context }) => {
   const page7Promise = context.waitForEvent('page');
   await page.getByRole('button', { name: 'New Tab' }).click();
   const page7 = await page7Promise;
-  // Replace Window - navigates away, so go back
-  await page.getByRole('button', { name: 'Replace Window' }).click();
-  await page.goBack();
-  await page.waitForLoadState('domcontentloaded');
-  // Open New Window
-  const page8Promise = context.waitForEvent('page');
-  await page.getByRole('button', { name: 'New Window' }).click();
-  const page8 = await page8Promise;
-});
+ // Replace Window - navigate directly back instead of goBack
+await page.getByRole('button', { name: 'Replace Window' }).click();
+await page.goto('https://practice-automation.com/window-operations/');
+await page.waitForLoadState('domcontentloaded');
+// Open New Window
+const page8Promise = context.waitForEvent('page');
+await page.getByRole('button', { name: 'New Window' }).click();
+const page8 = await page8Promise;
 
 
 test('test 9 - Hover', async ({ page }) => {
@@ -213,9 +212,9 @@ test('test 10 - Ads', async ({ page }) => {
   await lockFrame.getByRole('textbox', { name: 'Enter Password' }).fill('automateNow');
   // Submit and wait for popup and download simultaneously
   const [page5, download4] = await Promise.all([
-    page.waitForEvent('popup'),
-    page.waitForEvent('download'),
-    lockFrame.getByRole('button', { name: 'Submit' }).click()
+  page.waitForEvent('popup'),
+  page.waitForEvent('download'),
+  lockFrame.getByRole('button', { name: 'Submit' }).click()
   ]);
   // Click download link and wait for popup and download simultaneously
   const [page6, download5] = await Promise.all([
