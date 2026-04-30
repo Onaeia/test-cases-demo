@@ -190,15 +190,16 @@ test('test 10 - Ads', async ({ page }) => {
   await page.locator('.mk-map-node-element').click();
   });
 
-   test('test 12 - File Download', async ({ page }) => {
+ test('test 12 - File Download', async ({ page }) => {
   test.setTimeout(60000);
   // Navigate to page
   await page.goto('https://practice-automation.com/');
   await page.getByRole('link', { name: 'File Download' }).click();
   // Download third file
-  const download3Promise = page.waitForEvent('download');
-  await page.getByRole('link', { name: 'Download' }).nth(2).click();
-  const download3 = await download3Promise;
+  const [download3] = await Promise.all([
+    page.waitForEvent('download'),
+    page.getByRole('link', { name: 'Download' }).nth(2).click()
+  ]);
   // Open password-protected download
   await page.getByRole('link', { name: 'Download' }).nth(4).click();
   // Enter wrong password
@@ -210,18 +211,18 @@ test('test 10 - Ads', async ({ page }) => {
   await lockFrame.getByText('Try Again').click();
   await lockFrame.getByRole('textbox', { name: 'Enter Password' }).click();
   await lockFrame.getByRole('textbox', { name: 'Enter Password' }).fill('automateNow');
-  // Submit and wait for popup and download
-  const page5Promise = page.waitForEvent('popup');
-  const download4Promise = page.waitForEvent('download');
-  await lockFrame.getByRole('button', { name: 'Submit' }).click();
-  const page5 = await page5Promise;
-  const download4 = await download4Promise;
-  // Click download link and wait for popup and download
-  const page6Promise = page.waitForEvent('popup');
-  const download5Promise = page.waitForEvent('download');
-  await lockFrame.getByRole('link', { name: 'Download' }).click();
-  const page6 = await page6Promise;
-  const download5 = await download5Promise;
+  // Submit and wait for popup and download simultaneously
+  const [page5, download4] = await Promise.all([
+    page.waitForEvent('popup'),
+    page.waitForEvent('download'),
+    lockFrame.getByRole('button', { name: 'Submit' }).click()
+  ]);
+  // Click download link and wait for popup and download simultaneously
+  const [page6, download5] = await Promise.all([
+    page.waitForEvent('popup'),
+    page.waitForEvent('download'),
+    lockFrame.getByRole('link', { name: 'Download' }).click()
+  ]);
   // Close the lock frame
   await lockFrame.getByRole('button', { name: 'Close' }).click();
 });
