@@ -135,26 +135,24 @@ test('test 7 - Tables', async ({ page }) => {
 
 test('test 8 - Window Operations', async ({ page, context }) => {
   test.setTimeout(60000);
-
   // Navigate to page
   await page.goto('https://practice-automation.com/');
   await page.getByRole('link', { name: 'Window Operations' }).click();
-
   // Open New Tab
   const page7Promise = context.waitForEvent('page');
   await page.getByRole('button', { name: 'New Tab' }).click();
   const page7 = await page7Promise;
-
   // Replace Window - navigates away, so go back
   await page.getByRole('button', { name: 'Replace Window' }).click();
   await page.goBack();
-  await page.waitForURL(/window-operations/);
-
+  await page.waitForLoadState('domcontentloaded');
   // Open New Window
   const page8Promise = context.waitForEvent('page');
   await page.getByRole('button', { name: 'New Window' }).click();
   const page8 = await page8Promise;
 });
+
+
 test('test 9 - Hover', async ({ page }) => {
   test.setTimeout(60000);
   // Navigate to page
@@ -167,7 +165,6 @@ test('test 9 - Hover', async ({ page }) => {
 
 test('test 10 - Ads', async ({ page }) => {
   test.setTimeout(60000);
-
   // Navigate to page
   await page.goto('https://practice-automation.com/');
   await page.getByRole('link', { name: 'Ads' }).click();
@@ -258,6 +255,6 @@ test('test 15 - File Upload', async ({ page }) => {
   await page.goto('https://practice-automation.com/');
   await page.getByRole('link', { name: 'File Upload' }).click();
   // Upload file from desktop
-  await page.getByRole('button', { name: 'Choose File' }).setInputFiles('C:\\Users\\ZombieLumi\\Desktop\\TestDoc.txt');
+ await page.getByRole('button', { name: 'Choose File' }).setInputFiles('tests/fixtures/TestDoc.txt');
   await page.getByRole('button', { name: 'Upload' }).click();
 });
