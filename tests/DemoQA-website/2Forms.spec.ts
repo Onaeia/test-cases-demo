@@ -1,0 +1,34 @@
+import {test} from '@playwright/test';
+
+test('test Forms', async ({ page }) => {
+  test.setTimeout(60000);
+  await page.goto('https://demoqa.com/tool-tips');
+  await page.getByText('Forms').click();
+  await page.getByRole('link', { name: 'Practice Form' }).click();
+  await page.getByRole('textbox', { name: 'First Name' }).click();
+  await page.getByRole('textbox', { name: 'First Name' }).fill('TestName');
+  await page.getByRole('textbox', { name: 'Last Name' }).click();
+  await page.getByRole('textbox', { name: 'Last Name' }).fill('TestLast');
+  await page.getByRole('textbox', { name: 'name@example.com' }).click();
+  await page.getByRole('textbox', { name: 'name@example.com' }).fill('testmail@google.com');
+  await page.getByRole('radio', { name: 'Female' }).check();
+  await page.getByRole('textbox', { name: 'Mobile Number' }).click();
+  await page.getByRole('textbox', { name: 'Mobile Number' }).fill('1234512345');
+  await page.locator('#dateOfBirthInput').click();
+  await page.locator('.react-datepicker__month-select').selectOption('5');
+  await page.locator('.react-datepicker__year-select').selectOption('1971');
+  await page.locator('.react-datepicker__day--017').click();
+  await page.locator('#subjectsInput').fill('Maths');
+  await page.getByRole('option', { name: 'Maths' }).click();
+  await page.getByRole('checkbox', { name: 'Sports' }).check();
+  await page.getByRole('checkbox', { name: 'Reading' }).check();
+  await page.getByRole('checkbox', { name: 'Music' }).check();
+  await page.getByRole('textbox', { name: 'Current Address' }).click();
+  await page.getByRole('textbox', { name: 'Current Address' }).fill('Test Address');
+  await page.locator('#state > .css-13cymwt-control > .css-hlgwow > .css-19bb58m').click();
+  await page.getByRole('option', { name: 'Uttar Pradesh' }).click();
+  await page.locator('#city > .css-13cymwt-control > .css-hlgwow > .css-19bb58m').click();
+  await page.getByRole('option', { name: 'Lucknow' }).click();
+  await page.getByRole('button', { name: 'Submit' }).click();
+  await page.getByRole('button', { name: 'Close' }).click();
+});
