@@ -1,0 +1,31 @@
+import { test, expect } from '@playwright/test';
+
+test('test', async ({ page }) => {
+  await page.goto('https://letcode.in/test');
+  await page.getByRole('link', { name: 'All in One' }).click();
+  await page.locator('#firstname').click();
+  await page.locator('#firstname').fill('TestFirst');
+  await page.locator('#lasttname').click();
+  await page.locator('#lasttname').fill('TestLast');
+  await page.getByRole('textbox', { name: 'Email input' }).click();
+  await page.getByRole('textbox', { name: 'Email input' }).fill('hello@gmail.com');
+  await page.getByRole('combobox').first().selectOption('682');
+  await page.getByRole('textbox', { name: 'Phone Number' }).click();
+  await page.getByRole('textbox', { name: 'Phone Number' }).fill('1234512345t');
+  await page.getByRole('textbox', { name: 'Address Line-1' }).click();
+  await page.getByRole('textbox', { name: 'Address Line-1' }).fill('Test');
+  await page.getByRole('textbox', { name: 'Address Line-1' }).press('ControlOrMeta+a');
+  await page.getByRole('textbox', { name: 'Address Line-1' }).fill('Test Address');
+  await page.getByRole('textbox', { name: 'Address Line-2' }).click();
+  await page.getByRole('textbox', { name: 'Address Line-2' }).fill('Test Adddress2');
+  await page.getByRole('textbox', { name: 'State' }).click();
+  await page.getByRole('textbox', { name: 'State' }).fill('Bla bla1');
+  await page.getByRole('textbox', { name: 'Postal-Code' }).click();
+  await page.getByRole('textbox', { name: 'State' }).fill('Bla bla12');
+  await page.getByRole('textbox', { name: 'Postal-Code' }).fill('323532');
+  await page.getByRole('combobox').nth(1).selectOption('Congo');
+  await page.locator('#Date').fill('2222-02-22');
+  await page.getByRole('radio', { name: 'Male', exact: true }).check();
+  await page.getByRole('checkbox', { name: 'I agree to the terms and' }).check();
+  await page.getByRole('button', { name: 'Submit' }).click();
+});
